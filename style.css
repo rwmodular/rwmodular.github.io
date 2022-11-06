@@ -60,6 +60,12 @@ li {
     display: inline-block;
     color: rgb(75, 65, 65);
 }
+.nav-items svg {
+    height: 32px;
+    width: 32px;
+    position: relative;
+    top: 10px;
+}
 .footer {
     height: 50px;
     line-height: 50px;
@@ -69,17 +75,36 @@ li {
 .content {
     padding-top: 60px;
 }
-
+.page {
+    margin: 60px;
+    padding: 20px 40px;
+    background-color: #fff;
+}
+.page .title {
+    text-align: center;
+}
 .spotlight {
     display: flex;
     flex-flow: row wrap;
     padding: 60px;
 }
+.page .spotlight {
+    padding: 0;
+}
 .spotlight-panel {
     flex: 1;
-    height: 100%;
     background-color: #fff;
     height: calc(100vh - 220px);
+}
+.spotlight-panel.exp {
+    height: auto;
+    font-size: 0.8em
+}
+.spotlight-panel.exp ul {
+    margin-top: 0;
+}
+.spotlight-panel.exp li {
+    margin-bottom: 0;
 }
 .spotlight-panel-inner {
     margin: 40px;
