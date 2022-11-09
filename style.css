@@ -26,12 +26,12 @@ li {
 }
 .burger {
     display: none;
-    height: 64px;
-    width: 64px;
+    height: 40px;
+    width: 40px;
     cursor: pointer;
     position: absolute;
     right: 0;
-    margin: 18px;
+    margin: 8px 18px;
 }
 .burger img {
     height: 100%;
@@ -135,15 +135,11 @@ li {
 }
 
 @media only screen and (max-width: 1024px) {
-    .nav {
-        height: 100px;
-    }
     .burger {
         display: block;
     }
     .nav .logo {
-        height: 80px;
-        margin: 6px 10px;
+        margin-left: 20px;
     }
 
     .nav-items {
@@ -151,20 +147,21 @@ li {
         position: absolute;
         background-color: #fff;
         width: 100%;
-        top: 100px;
+        top: 60px;
     }
     .nav-items.show {
         display: block;
     }
     .nav-items li {
         display: block;
+        margin-bottom: 0;
     }
     .nav-items a {
-        font-size: 2em;
+        font-size: 1.2em;
         width: 100%;
     }
-    .content {
-        padding-top: 100px;
+    .spotlight {
+        padding: 40px;
     }
     .spotlight-panel {
         flex: 0 0 100%;
