@@ -79,6 +79,7 @@ li {
     margin: 60px;
     padding: 20px 0;
     background-color: #fff;
+    min-height: calc(100vh - 220px);
 }
 .page .title {
     text-align: center;
@@ -161,6 +162,7 @@ li {
     }
     .page {
         margin: 40px;
+        min-height: calc(100vh - 180px);
     }
     .spotlight {
         padding: 40px;
