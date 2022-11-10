@@ -98,7 +98,6 @@ li {
 }
 .spotlight-panel.exp {
     height: auto;
-    font-size: 0.8em
 }
 .spotlight-panel.exp ul {
     margin-top: 0;
@@ -159,6 +158,9 @@ li {
     .nav-items a {
         font-size: 1.2em;
         width: 100%;
+    }
+    .page {
+        margin: 40px;
     }
     .spotlight {
         padding: 40px;
