@@ -23,6 +23,7 @@ li {
     width: 100%;
     background-color: #fff;
     height: 60px;
+    border-bottom: solid 1px  rgb(199, 199, 199);
 }
 .burger {
     display: none;
@@ -69,17 +70,22 @@ li {
 .footer {
     height: 50px;
     line-height: 50px;
+    color: rgb(114, 114, 114);
     background-color: #fff;
     text-align: center;
+    border-top: solid 1px  rgb(199, 199, 199);
 }
 .content {
     padding-top: 60px;
 }
 .page {
     margin: 60px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px 0;
     background-color: #fff;
-    min-height: calc(100vh - 220px);
+    min-height: calc(100vh - 270px);
+    max-width: 900px;
 }
 .page .title {
     text-align: center;
@@ -95,7 +101,6 @@ li {
 .spotlight-panel {
     flex: 1;
     background-color: #fff;
-    height: calc(100vh - 220px);
 }
 .spotlight-panel.exp {
     height: auto;
@@ -108,7 +113,6 @@ li {
 }
 .spotlight-panel-inner {
     margin: 40px;
-    height: calc(100% - 80px);
 }
 .spotlight img {
     margin-left: auto;
@@ -118,17 +122,17 @@ li {
     max-height: 100%;
 }
 .fake-button {
-    border: solid 3px rgb(75, 65, 65);
+    border: solid 3px rgb(199, 199, 199);
     border-radius: 12px;
     display: inline-block;
     padding: 4px 12px;
     cursor: pointer;    
 }
 .fake-button:hover {
-    background-color: rgb(75, 65, 65);
+    background-color: rgb(199, 199, 199);
 }
 .fake-button a {
-    color: rgb(75, 65, 65);
+    color: rgb(114, 114, 114);
 }
 .fake-button a:hover {
     color: #fff;
@@ -151,6 +155,7 @@ li {
     }
     .nav-items.show {
         display: block;
+        border-bottom: solid 2px rgb(193, 193, 193);
     }
     .nav-items li {
         display: block;
@@ -161,8 +166,8 @@ li {
         width: 100%;
     }
     .page {
-        margin: 40px;
-        min-height: calc(100vh - 180px);
+        margin: 0;
+        min-height: calc(100vh - 150px);
     }
     .spotlight {
         padding: 40px;
