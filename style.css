@@ -114,7 +114,7 @@ li {
 .spotlight-panel-inner {
     margin: 40px;
 }
-.spotlight img {
+.spotlight img, .spotlight iframe {
     margin-left: auto;
     margin-right: auto;
     display: block;
