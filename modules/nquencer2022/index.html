@@ -38,17 +38,16 @@
                 <div class="spotlight">
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
-                            <img src="/assets/images/nQuencer.jpg" />
+                            <img src="/assets/images/nQuencer22.jpg" />
                         </div>
                     </div>
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
                             <p>nQuencer is a eurorack module that turns the <a href="https://16n-faderbank.github.io/">16n faderbank</a> into a step sequencer.</p> 
-                            <p>Connect a 3.5mm stereo cable to the i2c socket, patch in a clock and get a pitch and gate output.</p>
-                            <p>When the nQuencer module receives a trigger at the Clock input it reads the state of the first 16n Faderbank fader and outputs a corresponding voltage at Output 1. At the next clock signal it will read the second fader and so on until it reaches the end and loops back to the start.</p>
-                            <p>The reset button and input to move back to the start</p>
-                            <p>If a fader is at the very bottom no gate will be generated for that step in modes that output gates. The last fader that isn't at the bottom determines the length of the sequence.</p></pIf>
-                            <p>The LED grid shows the current step of the sequence or current setting while in settings mode.</p>
+                            <p>connect a 3.5mm stereo cable to the i2c socket, patch in a clock and get a pitch and gate output.</p>
+                            <p>when the nQuencer module receives a trigger at the Clock input it reads the state of the first 16n Faderbank fader and outputs a corresponding voltage at Output 1. At the next clock signal it will read the second fader and so on until it reaches the end and loops back to the start.</p>
+                            <p>reset button and input to move back to the start</p>
+                            <p>if a fader is at the very bottom no gate will be generated for that step in modes that output gates. The last fader that isn't at the bottom determines the length of the sequence.</p></pIf>
                         </div>   
                     </div>
                 </div>
@@ -99,14 +98,11 @@
                     <div class="spotlight-panel exp">
                         <div class="spotlight-panel-inner">
                             <h3>options</h3>
-                            <p>Hold the reset button to enter settings mode, use the faders to change settings and press the button to exit</p>
+                            <p>hold the reset button to enter settings mode, use the faders to change settings and press the button to exit</p>
                             <p><b>direction</b> up, down, up down, random</p>
                             <p><b>probability</b> chance of a note firing</p>
                             <p><b>output voltage range</b> max 1v, 2v, 3v, 4v</p>
-                            <p><b>fader behaviour</b><br>
-                                sequence behaviour when faders are at the bottom<br>
-                                note off, output 0v, last fader not at bottom controls sequence length on/off
-                            </p>
+                            <p><b>fader at bottom</b> note off, output 0v, last fader not at bottom controls sequence length on/off</p>
                             <p><b>gate length</b><br/></p>
                             <p><b>alternative reset input mode on/off</b><br/></p>
                             <p>
@@ -118,16 +114,13 @@
                             <h3>technical details</h3>
                             <p>width: 4HP</p>
                             <p>depth: 25mm</p>
-                            <p>power: 12v 45mA, -12v 0mA, 5v 0mA</p>
+                            <p>power: 12v 30mA, -12v 0mA, 5v 0mA</p>
 
                             <h3>links</h3>
                             <a href="nQuencer_manual.pdf">manual</a><br>
                             <a href="nQuencer_build_guide.pdf">DIY build guide</a><br>
-                            <a href="nQuencer.1.0.uf2">firmware 1.0 (2024-02-14)</a><br>
+                            <a href="nQuencer20230320.hex">firmware 2023-03-20</a><br>
                             <a href="https://www.modulargrid.net/e/other-unknown-nquencer">modulargrid</a>
-
-                            <h3>note</h3>
-                            <p>If you have an early version of nQuencer without the LED display grid, you can find documentation <a href="/modules/nQuencer2022">here</a>.</p>
                         </div>
                     </div>
                 </div>
