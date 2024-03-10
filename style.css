@@ -4,7 +4,7 @@ html, body {
 }
 body {
     margin: 0;
-    background-color: rgb(243, 243, 243);
+    background-color: #fff;
     font-family: 'noto sans jp', wingdings;
     font-weight: 400;
 }
@@ -79,7 +79,6 @@ li {
     padding-top: 60px;
 }
 .page {
-    margin: 60px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px 0;
@@ -112,7 +111,7 @@ li {
     margin-bottom: 0;
 }
 .spotlight-panel-inner {
-    margin: 40px;
+    margin: 40px 20px;
 }
 .spotlight img, .spotlight iframe {
     margin-left: auto;
@@ -122,20 +121,15 @@ li {
     max-height: 100%;
 }
 .fake-button {
-    border: solid 3px rgb(199, 199, 199);
-    border-radius: 12px;
+    border: solid 2px rgb(114, 114, 114);
+    border-radius: 4px;
+    color: rgb(114, 114, 114);
     display: inline-block;
-    padding: 4px 12px;
+    padding: 8px 24px;
     cursor: pointer;    
 }
 .fake-button:hover {
-    background-color: rgb(199, 199, 199);
-}
-.fake-button a {
-    color: rgb(114, 114, 114);
-}
-.fake-button a:hover {
-    color: #fff;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 1024px) {
