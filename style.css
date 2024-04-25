@@ -4,7 +4,7 @@ html, body {
 }
 body {
     margin: 0;
-    background-color: rgb(243, 243, 243);
+    background-color: #fff;
     font-family: 'noto sans jp', wingdings;
     font-weight: 400;
 }
@@ -41,7 +41,7 @@ li {
     margin-left: 100px;
     height: 40px;
     border: solid 3px rgb(75, 65, 65);
-    border-radius: 12px;
+    border-radius: 50%;
     margin-top: 8px;
 }
 .nav-items {
@@ -61,11 +61,24 @@ li {
     display: inline-block;
     color: rgb(75, 65, 65);
 }
+.nav-items a.icon:hover {
+    text-decoration: none;
+}
+.nav-items a.icon span {
+    display: none;
+}
+.nav-items a.icon span:hover {
+    text-decoration: underline;
+}
 .nav-items svg {
-    height: 32px;
     width: 32px;
     position: relative;
-    top: 10px;
+    top: 8px;
+}
+.nav-items svg.insta {
+    width: 24px;
+    top: 5px;
+    margin-right: 4px;
 }
 .footer {
     height: 50px;
@@ -79,12 +92,11 @@ li {
     padding-top: 60px;
 }
 .page {
-    margin: 60px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px 0;
     background-color: #fff;
-    min-height: calc(100vh - 270px);
+    min-height: calc(100vh - 152px);
     max-width: 900px;
 }
 .page .title {
@@ -112,7 +124,7 @@ li {
     margin-bottom: 0;
 }
 .spotlight-panel-inner {
-    margin: 40px;
+    margin: 40px 20px;
 }
 .spotlight img, .spotlight iframe {
     margin-left: auto;
@@ -122,20 +134,15 @@ li {
     max-height: 100%;
 }
 .fake-button {
-    border: solid 3px rgb(199, 199, 199);
-    border-radius: 12px;
+    border: solid 2px rgb(114, 114, 114);
+    border-radius: 4px;
+    color: rgb(114, 114, 114);
     display: inline-block;
-    padding: 4px 12px;
+    padding: 8px 24px;
     cursor: pointer;    
 }
 .fake-button:hover {
-    background-color: rgb(199, 199, 199);
-}
-.fake-button a {
-    color: rgb(114, 114, 114);
-}
-.fake-button a:hover {
-    color: #fff;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -165,9 +172,11 @@ li {
         font-size: 1.2em;
         width: 100%;
     }
+    .nav-items a.icon span {
+        display: inline;
+    }
     .page {
         margin: 0;
-        min-height: calc(100vh - 150px);
     }
     .spotlight {
         padding: 40px;
