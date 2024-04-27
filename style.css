@@ -145,6 +145,13 @@ li {
     text-decoration: underline;
 }
 
+.retailer img{
+    max-width: 200px;
+}
+.retailer h4 {
+    text-align: center;
+}
+
 @media only screen and (max-width: 1024px) {
     .burger {
         display: block;
