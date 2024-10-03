@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP" type="text/css">
         <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicon.png">
-        <title>random works modular - about</title>
+        <title>random works modular - projects</title>
 
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1TS1CFXSL"></script>
@@ -28,7 +28,7 @@
             <ul class="nav-items">
                 <li><a href="/modules/">modules</a></li>
                 <li><a href="/retailers/">retailers</a></li>
-                <li><a href="/projects/">projects</a></li>                
+                <li><a href="/projects/">projects</a></li>
                 <li><a href="/about/">about</a></li>
                 <li>
                     <a href="https://www.youtube.com/channel/UCCGlK9hnJcmzP-reK1QWIQg" title="YouTube" class="icon">
@@ -47,56 +47,124 @@
 
         <div class="content">
             <div class="page">
-                <h1 class="title">retailers</h1>
                 <div class="spotlight">
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
-                            
-                            <a href="https://www.exploding-shed.com/random-works/" class="retailer">
-                                <img src="/assets/images/Exploding-Shed-Logo-Shop.png" />
-                                <h4>Exploding Shed</h4>
-                            </a>
-                            <div class="retailer-type">DIY Kits</div>
-                            
-                        </div>
-                    </div>
-                    <div class="spotlight-panel">
-                        <div class="spotlight-panel-inner">
-
-                            <a href="https://www.thonk.co.uk/brand/random-works/" class="retailer">
-                                <img src="/assets/images/thonk_logo.png" />
-                                <h4>Thonk</h4>
-                            </a>
-                            <div class="retailer-type">DIY Kits</div>
-
+                            <h1 class="title">projects</h1>
+                            <p>A collection of projects asside from our modules that we have worked on</p>
                         </div>   
                     </div>
                 </div>
+
                 <div class="spotlight">
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
-                            
-                            <a href="https://atovproject.de/store/" class="retailer">
-                                <img src="/assets/images/AtoVproject Logo Black Shop.png" />
-                                <h4>AtoVproject</h4>
-                            </a>
-                            <div class="retailer-type">Built Modules & DIY Kits</div>
-                            
-                        </div>
-                    </div>
-                    <div class="spotlight-panel">
-                        <div class="spotlight-panel-inner">
+                            <h2>norns scripts</h2>
+                            The following are scripts for the <a href="https://monome.org/docs/norns/">monome norns</a>
                         </div>   
                     </div>
                 </div>
+
+                <h3 class="project-title">Spirals</h3>
                 <div class="spotlight">
-                    <div class="spotlight-panel exp">
-                        <div class="spotlight-panel-inner">
-                            <p>If you don't see your favourite retailer here or are interested in stocking our modules, 
-                            please <a href="mailto:hello@random-works.co.uk">get in touch</a>.</p>
+                    <div class="spotlight-panel project-image">
+                        <div class="spotlight-panel-inner project">
+                            <img src="spirals.png" />
                         </div>
                     </div>
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner project">
+                            <p>
+                                Notes of the selected scale are spread around a circle. Points are drawn by rotating a set amount from the last point while moving outwards slightly and notes are triggered depending on where they land. Patterns repeat and change over time.
+                            </p> 
+                            <a href="https://github.com/tomwaters/spirals/">github</a><br />
+                            <a href="https://llllllll.co/t/spirals/">lines</a>
+                        </div>   
+                    </div>
                 </div>
+
+                <h3 class="project-title">Breakthrough</h3>
+                <div class="spotlight">
+                    <div class="spotlight-panel project-image">
+                        <div class="spotlight-panel-inner project">
+                            <img src="breakthrough.png" />
+                        </div>
+                    </div>
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner project">
+                            <p>
+                                Each block is assigned a note within the limits set in the parameters. When a ball hits a block, that note sounds. After being hit 4 times, blocks are removed. When a ball hits the bottom of the screen the root note sounds.
+                            </p> 
+                            <a href="https://github.com/tomwaters/breakthrough/">github</a><br />
+                            <a href="https://llllllll.co/t/breakthrough/">lines</a>
+                        </div>   
+                    </div>
+                </div>
+
+                <h3 class="project-title">Get in the Sea!</h3>
+                <div class="spotlight">
+                    <div class="spotlight-panel project-image">
+                        <div class="spotlight-panel-inner project">
+                            <iframe width="256" height="128" src="https://www.youtube.com/embed/hLFo0XP8N3s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner project">
+                            <p>
+                                Plays Terry Riley's 'In C'
+                            </p> 
+                            <a href="https://github.com/tomwaters/get_in_the_sea">github</a><br />
+                            <a href="https://llllllll.co/t/get-in-the-sea/">lines</a>
+                        </div>   
+                    </div>
+                </div>
+
+
+                <div class="spotlight">
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner">
+                            <h2>ornament and crime hemisphere suite - alternate applets</h2>
+                        </div>   
+                    </div>
+                </div>
+
+                <div class="spotlight">
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner project">
+                            <h3>spirals</h3>                            
+                            <p>
+                                Replaces the MIDI Out applet with an implementation of the Spirals norns script
+                            </p> 
+                            <a href="https://github.com/tomwaters/O_C-HemisphereSuite/tree/Spirals">github</a>
+                        </div>   
+                    </div>
+                </div>
+
+                <div class="spotlight">
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner project">
+                            <h3>alt scope</h3>                            
+                            <p>
+                                Adds an option to the Scope applet to plot the inputs as X/Y coordinates
+                            </p> 
+                            <a href="https://github.com/tomwaters/O_C-HemisphereSuite/tree/ScopeChanges">github</a>
+                        </div>   
+                    </div>
+                </div>
+
+
+                <div class="spotlight">
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner">
+                            <h2>Mutable Instruments Plaits - i2c support</h2>
+                            <p>
+                                Allows the pitch, trigger and level of Plaits to be controlled over i2c by our nQuencer module or other modules that support i2c
+                            </p>
+                            <a href="https://github.com/rwmodular/mutable_instruments_eurorack/tree/master/alt_firmwares">github</a>
+                        </div>   
+                    </div>
+                </div>
+                <p></p>
             </div>
         </div>
 
