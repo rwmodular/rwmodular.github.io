@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP" type="text/css">
         <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicon.png">
-        <title>random works modular - nQuencer best buds</title>
+        <title>random works modular - miidii</title>
 
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1TS1CFXSL"></script>
@@ -47,39 +47,46 @@
 
         <div class="content">
             <div class="page">
-                <h1 class="title">nQuencer - Best Buds</h1>
+                <h1 class="title">miidii</h1>
 
                 <div class="spotlight">
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
-                            <p>Best Buds is an alternative firmware for nQuencer designed to be a bridge between your 16n faderbank and the mannequins just friends module.</p>
-                            <p>Connect nQuencer to Just Friends using an i2c cable and nQuencer will trigger the 6 voices of Just Friends when it receives a trigger at the clock input or when you tap the reset button.</p> 
-                            
-                            <strong>Faders</strong>
+                            <img src="/assets/images/nQuencer.jpg" />
+                        </div>
+                    </div>
+                    <div class="spotlight-panel">
+                        <div class="spotlight-panel-inner">
+                            <p>miidii lets you play Mannequins Just Friends via midi.</p> 
+                            <p>Connect it to Just Friends via i2c and your midi device via usb-c or midi trs.</p>
                             <p>
-                                <ul>
-                                    <li>1 to 6 - Pitch of the 6 just friends voices</li>
-                                    <li>8 - Transpose pitch of all voices</li>
-                                    <li>9 to 14 - Volume of the 6 just friends voices</li>
-                                    <li>16 - Attenuate volume of all voices</li>
-                                </ul> 
-                            </p><br>
-
-                            <strong>Settings</strong>
-                            <p>You can enter settings in the same way as with the nQuencer firmware - hold down the reset button until it remains lit, change settings with the faders and tap the button to exit.</p>
-                            <p>The settings are the same as the nQuencer firmware but only the following settings are used in the best buds firmware:
-                                <ul>
-                                    <li>3 - Probability of a voice being triggered</li>
-                                    <li>4 - Output Range (1,2,3 or 4 octaves)</li>
-                                    <li>13 to 16 - Quantizer Settings</li>
-                                </ul>
-                            </p><br>
-
-                            <p>Download the firmware and upload it to your nQuencer over USB using the process described in the manual. You can change it back at any time but uploading the standard nQuencer firmware.</p>
-                            <a href="BestBuds.0.1.uf2">best buds firmware 0.1 (2024-12-12)</a><br>
-                        </div>   
+                                With the switch in the middle position, Just Friends is played polyphonically. 
+                                In the down position, each of the Just Friends voices is controlled by a separate midi channel. 
+                                In the up position the module is disabled and Just Friends is returned to its default mode.
+                            </p>
+                            <p>Connect to a computer via midi and use the <a href="configure.html">configuration tool</a> to set midi channels.</p>
+                            <p>Use the jumpers to set the trs midi socket to type A or type B.</p>
+                            <p>The usb-c port is unpowered midi client.</p>
+                        </div>
                     </div>
                 </div>
+
+                <div class="spotlight">
+                    <div class="spotlight-panel exp">
+                        <div class="spotlight-panel-inner">
+                            <h3><u>technical details</u></h3>
+                            <p>width: 2HP</p>
+                            <p>depth: 45mm</p>
+                            <p>power: 12v ??mA, -12v 0mA, 5v 0mA</p>
+
+                            <h3><u>links</u></h3>
+                            <a href="configure.html">miidii configuration tool</a><br>
+                            <a href="nQuencer_manual_1.1.pdf">manual</a><br>
+                            <a href="https://www.modulargrid.net/e/other-unknown-nquencer">modulargrid</a><br>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
