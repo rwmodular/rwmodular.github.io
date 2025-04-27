@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP" type="text/css">
         <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
         <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/favicon.png">
-        <title>random works modular - modules</title>
+        <title>random works modular - miidii</title>
 
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1TS1CFXSL"></script>
@@ -17,7 +17,7 @@
         gtag('js', new Date());
 
         gtag('config', 'G-P1TS1CFXSL');
-        </script>        
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -47,44 +47,61 @@
 
         <div class="content">
             <div class="page">
-                <h1 class="title">modules</h1>
-                <div class="spotlight">
-                    <div class="spotlight-panel">
-                        <div class="spotlight-panel-inner">
-                            <a href="/modules/miidii/"><img src="/assets/images/miidii.jpg" /></a>
-                        </div>
-                    </div>
-                    <div class="spotlight-panel">
-                        <div class="spotlight-panel-inner">
-                            <h2>miidii</h2>
-                            <p>miidii lets you play Mannequins Just Friends via midi.</p> 
-                            <p>Connect it to Just Friends via i2c and your midi device via usb-c or midi trs.</p>
-                            <p>Play polyphonically or one midi channel per Just Friends voice.</p>
-                            <a href="/modules/miidii/"><h4 class="fake-button">Find Out More</h4></a>
-                        </div>   
-                    </div>
-                </div>
+                <h1 class="title">miidii</h1>
 
                 <div class="spotlight">
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
-                            <h2>nQuencer</h2>
-                            <p>
-                                nQuencer is a eurorack module that turns the <a href="https://16n-faderbank.github.io/">16n faderbank</a> into a step sequencer.
-                            </p> 
-                            <ul>
-                                <li>16 step, 2x8 step, 8 step transposed by 8 step & dj mode (toggle between two 8 steps)</li>
-                                <li>built in quantizer</li>
-                                <li>sequence direction, probability & more</li>
-                            </ul>
-                            <a href="/modules/nQuencer/"><h4 class="fake-button">Find Out More</h4></a>
-                        </div>   
+                            <img src="/assets/images/miidii.jpg" />
+                        </div>
                     </div>
                     <div class="spotlight-panel">
                         <div class="spotlight-panel-inner">
-                            <a href="/modules/nQuencer/"><img src="/assets/images/nQuencer.jpg" /></a>
+                            <p>Miidii lets you play Mannequins Just Friends via midi.</p> 
+                            <p>Connect it to Just Friends via i2c and your midi device via usb-c or midi trs.</p>
+                            <ul>
+                                <li>With the switch in the middle position, Just Friends is played polyphonically.</li>
+                                <li>In the down position, each of the six Just Friends voices is controlled by a separate midi channel.</li>
+                                <li>In the up position the module is disabled and Just Friends is returned to its default mode.</li>
+                            </ul>
+                            <p>Connect to a computer via usb midi and use the <a href="configure.html">configuration tool</a> to change midi channels and other settings.</p>
                         </div>
-                    </div>                    
+                    </div>
+                </div>
+
+                <div class="spotlight">
+                    <div class="spotlight-panel exp">
+                        <div class="spotlight-panel-inner">
+                            <h3><u>faq</u></h3>
+                            <p>
+                                <i>What type of midi cable do i need?</i><br/>
+                                You can use a midi type-a trs cable.<br/>
+                                Miidii is a usb midi client so you need to connect it to a usb midi host if you want to use it via the usb-c socket.
+                            </p>
+                            <p>
+                                <i>Can i use a longer i2c cable?</i><br />
+                                Yes, any 2.54mm (0.1") pitch female/female jumper wire (sometimes known as a dupont cable) can be used.<br/>
+                                You may run into problems with very long cables so keep it as short as you can.<br/>
+                                You should be able to get one from an electronics hobbyist / maker store such as Adafruit or Pimoroni.
+                            </p>
+                            <p>
+                                <i>I'm having trouble with the configuration tool</i><br/>
+                                Google Chrome works best - make sure you give it permission to use midi devices if prompted.<br/>
+                                If you are using Windows, close any other applications that may be using midi.
+                            </p>
+
+                            <h3><u>technical details</u></h3>
+                            <p>width: 2HP</p>
+                            <p>depth: 55mm</p>
+                            <p>power: 12v 35mA, -12v 0mA, 5v 0mA</p>
+
+                            <h3><u>links</u></h3>
+                            <a href="configure.html">miidii configuration tool</a><br>
+                            <a href="miidii_quick_start.pdf">quick start guide</a><br>
+                            <a href="miidii.0.3.uf2">firmware 0.3 (2025-04-23)</a><br>
+                            <a href="https://www.modulargrid.net/e/other-unknown-miidii">modulargrid</a><br>
+                        </div>
+                    </div>
                 </div>
 
             </div>
