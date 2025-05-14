@@ -80,6 +80,15 @@ li {
     top: 5px;
     margin-right: 4px;
 }
+.info-banner {
+    padding: 8px;
+    background-color: #7cb7eb;
+    color: #fff;
+    text-align: center;
+}
+.info-banner a {
+    color: #fff;
+}
 .footer {
     height: 50px;
     line-height: 50px;
