@@ -93,6 +93,7 @@
                 var d = e.message.data;
                 if (d[4] === 0x1f)
                 {
+                  num_targets = 1;
                   get("info").innerHTML = "connected to miidii version " + d[6] + "." + d[7] + "." + d[8];
                   if(d[6] < 1) {
                     showMessage("Please update your miidii module or use the old configuration page <a href=\"configure_old.html\">here</a>", true);
@@ -107,8 +108,8 @@
                       if(count > max_targets) {
                           count = max_targets;
                       }
-
-                      for(var i=0; i<count; i++) {
+                      num_targets = count;
+                      for(var i=0; i<num_targets; i++) {
                         var n = 12 + (i*3);
                         var type = d[n];
                         var midi = d[n + 1];
@@ -321,7 +322,7 @@
                                     <label for="target2_type">device </label>
                                     <select id="target2_type" class="target_type">
                                       <option value="1">Just Friends Address 1</option>
-                                      <option value="2">Just Friends Address 2</option>
+                                      <option value="11">Just Friends Address 2</option>
                                     </select>
                                     <br/><br/>
 
