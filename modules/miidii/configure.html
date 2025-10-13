@@ -33,6 +33,9 @@
             #info {
                 text-align: right;
             }
+            #enter_firmware {
+                float: right;
+            }
             #config_form {
                 display: none;
                 margin-top: 20px;
@@ -46,77 +49,197 @@
             }
             .show {
                 display: block!important;
-            }            
+            }
+            .target {
+              border: solid 1px;
+              border-radius: 12px;
+              padding: 12px;
+              margin-bottom: 20px;
+              position: relative;
+              display: none;
+            }
+            .changeaddr {
+              float: right;
+            }
         </style>
         <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
         <script type="module">
 
-            var miidii_input = undefined;
-            var miidii_output = undefined;
+          var max_targets = 2;
+          var num_targets = 1;
+          var miidii_input = undefined;
+          var miidii_output = undefined;
 
-            function get(id) {
-                return document.getElementById(id);
+          function get(id) {
+            return document.getElementById(id);
+          }
+
+          function show(id) {
+            var ele = get(id);
+            if(!ele.classList.contains("show")) {
+              ele.classList.add("show");
             }
+          }
 
-            function showMessage(html, error) {
-                var obj = get("message");
-                obj.classList.remove("error");
-                if(error) {
-                    obj.classList.add("error");
-                }
-                obj.innerHTML = html;
-                obj.classList.add("show");
-            }
+          function showMessage(html, error) {
+              var obj = get("message");
+              obj.classList.remove("error");
+              if(error) {
+                  obj.classList.add("error");
+              }
+              obj.innerHTML = html;
+              obj.classList.add("show");
+          }
 
-            function getConfig() {
-                miidii_input.addOneTimeListener("sysex", e => {
-                    var d = e.message.data;
-                    if (d[4] === 0x1f)
-                    {
-                        get("info").innerHTML = "connected to miidii version " + d[6] + "." + d[7] + "." + d[8];
-                        get("midi_channel").value = d[9];
-                        get("jf_address").value = "0x" + d[10].toString(16);
-                        get("midi_led_off").checked = d[11] == 1;
-                        var form = get("config_form");
-                        if(!form.classList.contains("show")) {
-                            form.classList.add("show");
-                        }
+          function getConfig() {
+            miidii_input.addOneTimeListener("sysex", e => {
+                var d = e.message.data;
+                if (d[4] === 0x1f)
+                {
+                  num_targets = 1;
+                  get("info").innerHTML = "connected to miidii version " + d[6] + "." + d[7] + "." + d[8];
+                  if(d[6] < 1) {
+                    showMessage("Please update your miidii module or use the old configuration page <a href=\"configure_old.html\">here</a>", true);
+                  }
+                  if(d[9] == 0x77 && d[10] == 0x01) {
+                    var count = d[11];
+                    if(count < 1) {
+                      show("target1");
                     }
-                });
-                miidii_output.sendSysex([0x7d, 0x00, 0x00], [0x11]);
-            }
+                    else 
+                    {
+                      if(count > max_targets) {
+                          count = max_targets;
+                      }
+                      num_targets = count;
+                      for(var i=0; i<num_targets; i++) {
+                        var n = 12 + (i*3);
+                        var type = d[n];
+                        var midi = d[n + 1];
+                        var i2c = d[n + 2];
 
-            function writeConfig() {
-                var d = [0x12];
-                d[1] = Number(get("midi_channel").value);
-                d[2] = Number(get("jf_address").value, 16);
-                d[3] = get("midi_led_off").checked ? 1 : 0;
-                miidii_output.sendSysex([0x7d, 0x00, 0x00], d);
-            }
+                        var name = "target" + (i + 1);
+                        get(name + "_type").value = (type == 1 && i2c == 0x75) ? 11 : type;
+                        get(name + "_midi").value = midi;
+                        get(name + "_i2c").value = "0x" + i2c.toString(16);
 
-            function onEnabled() {
-                var target_name = "miidii";
-                miidii_input = WebMidi.getInputByName(target_name);
-                miidii_output = WebMidi.getOutputByName(target_name);
-                if(miidii_input === undefined || miidii_output === undefined) {
-                    showMessage("No device detected", true);
-                    return;
+                        show(name);
+                      }
+
+                      get("midi_led_off").checked = d[(num_targets * 3) + 12] == 1;
+                    }
+                  }
+                  else
+                  {
+                    get("midi_led_off").checked = d[11] == 1;
+
+                    get("target1_midi").value = d[9];
+                    get("target1_type").value = d[10] == 2 ? "2" : "1";
+                    get("target1_i2c").value = "0x" + d[10].toString(16);
+                    show("target1");
+                  }
+                    
+                  show("config_form");
+                  show("enter_firmware");
                 }
-              
-                getConfig();
-            }
-            
-            window.addEventListener('DOMContentLoaded',function () {
-                WebMidi
-                .enable({sysex: true})
-                .then(onEnabled)
-                .catch(err => alert(err));
+              });
+              miidii_output.sendSysex([0x7d, 0x00, 0x00], [0x11]);
+          }
 
-                get("save_btn").onclick = function() {
-                    writeConfig();
-                };
-            });
-          </script>
+          function writeConfig() {
+            var d = [0x12];
+            d[1] = 0x77;
+            d[2] = 0x01;
+            d[3] = num_targets;
+            
+            for(var i=0; i<num_targets; i++) {
+              var n = 4 + (i*3);
+              var name = "target" + (i+1);
+
+              var type = get(name + "_type").value;
+              d[n] = type == "1" || type == "11" ? 1 : 0;
+              d[n+1] = Number(get(name + "_midi").value);
+              d[n+2] = Number(get(name + "_i2c").value);
+            }
+
+            d[(num_targets * 3) + 4] = get("midi_led_off").checked ? 1 : 0;
+            miidii_output.sendSysex([0x7d, 0x00, 0x00], d);
+          }
+
+          function onEnabled() {
+              var target_name = "miidii";
+              miidii_input = WebMidi.getInputByName(target_name);
+              miidii_output = WebMidi.getOutputByName(target_name);
+              if(miidii_input === undefined || miidii_output === undefined) {
+                  showMessage("No device detected", true);
+                  return;
+              }
+            
+              getConfig();
+          }
+          
+          function addTarget() {
+            if(num_targets < 2) {
+              num_targets++;
+              get("target" + num_targets).classList.add("show");
+            }
+          }
+
+          function removeTarget() {
+            if(num_targets > 1) {
+              get("target" + num_targets).classList.remove("show");
+              num_targets--;
+            }
+          }
+
+          function setJFAddressClick(event) {
+            var addr = event.target.classList.contains("setaddr2") ? 2 : 1;
+            if(confirm("Are you sure you want to change the address of Just Friends to " + addr + "? Please ensure that only one Just Friends module is connected before continuing.")) {
+              miidii_output.sendSysex([0x7d, 0x00, 0x00], [0x13, 0x1F, addr]);
+            }
+          }
+
+          window.addEventListener('DOMContentLoaded',function () {
+            WebMidi
+            .enable({sysex: true})
+            .then(onEnabled)
+            .catch(err => alert(err));
+
+            get("save_btn").onclick = function() {
+                writeConfig();
+            };
+
+            get("add_btn").onclick = function() {
+              addTarget();
+            };
+
+            get("remove_btn").onclick = function() {
+              removeTarget();
+            }
+
+            get("enter_firmware").onclick = function() {
+              miidii_output.sendSysex([0x7d, 0x00, 0x00], [0x13, 0x11, 0x01]);
+            }
+
+            var setjfaddrbtns = document.getElementsByClassName("setjfaddr");
+            for(var i=0; i<setjfaddrbtns.length; i++) {
+              setjfaddrbtns[i].onclick = setJFAddressClick;
+            }
+
+            var type_selects = document.getElementsByClassName("target_type");
+            for(var i=0; i<type_selects.length; i++) {
+              type_selects[i].addEventListener("change", function(event) {
+                var target_i2c = event.target.parentElement.getElementsByClassName("target_i2c");
+                if(event.target.value == "1") {
+                  target_i2c[0].value = "0x70";
+                }
+                else if(event.target.value == "11") {
+                  target_i2c[0].value = "0x75";
+                }
+              });
+            }
+          });
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -153,10 +276,28 @@
                         <div class="spotlight-panel-inner">
                             <div id="message"></div>
                             <div id="info"></div>
+                            <div><input type="button" id="enter_firmware" value="Enter Firmware Program Mode"/></div>
                             <form id="config_form">
                                 <div class="form-row">
-                                    <label for="midi_channel">midi channel</label>
-                                    <select id="midi_channel">
+                                    <label for="midi_led_off">disable midi led</label>
+                                    <input type="checkbox" id="midi_led_off"></checkbox>
+                                </div>
+                                <div id="target1" class="form-row target">
+                                    <div id="target1_changeaddr" class="changeaddr">
+                                      <input type="button" value="Set Address 1" class="setjfaddr setaddr1">
+                                      <br/>
+                                      <input type="button" value="Set Address 2" class="setjfaddr setaddr2">
+                                    </div>
+
+                                    <label for="target1_type">device </label>
+                                    <select id="target1_type" class="target_type">
+                                      <option value="1">Just Friends Address 1</option>
+                                      <option value="11">Just Friends Address 2</option>
+                                    </select>
+                                    <br/><br/>
+
+                                    <label for="target1_midi">midi channel </label>
+                                    <select id="target1_midi">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -174,18 +315,56 @@
                                         <option>15</option>
                                         <option>16</option>
                                     </select>
-                                    <div style="font-size:0.8rem">* in six monosynths mode one channel is used per voice starting from the selected channel looping back to 1 if it goes beyond sixteen</div>
+                                    <div style="font-size:0.8rem">* in six monosynths mode one channel is used per voice starting from the selected channel looping back to 1 if it goes beyond 16</div>
+                                    <br/>
+
+                                    <label for="target1_i2c">i2c address </label>
+                                    <input type="text" id="target1_i2c" pattern="0[xX][0-9a-fA-F]{1,2}" value="0x70" class="target_i2c" required/>
                                 </div>
-                                <div class="form-row">
-                                    <label for="jf_address">just friends address</label>
-                                    <input type="text" id="jf_address" pattern="0[xX][0-9a-fA-F]{1,2}" placeholder="0x70" required/>
+                                <div id="target2" class="form-row target">
+                                    <div id="target1_changeaddr" class="changeaddr">
+                                      <input type="button" value="Set Address 1" class="setjfaddr setaddr1">
+                                      <br/>
+                                      <input type="button" value="Set Address 2" class="setjfaddr setaddr2">
+                                    </div>
+
+                                    <label for="target2_type">device </label>
+                                    <select id="target2_type" class="target_type">
+                                      <option value="1">Just Friends Address 1</option>
+                                      <option value="11">Just Friends Address 2</option>
+                                    </select>
+                                    <br/><br/>
+
+                                    <label for="target2_midi">midi channel </label>
+                                    <select id="target2_midi">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        <option>11</option>
+                                        <option>12</option>
+                                        <option>13</option>
+                                        <option>14</option>
+                                        <option>15</option>
+                                        <option>16</option>
+                                    </select>
+                                    <div style="font-size:0.8rem">* in six monosynths mode one channel is used per voice starting from the selected channel looping back to 1 if it goes beyond 16</div>
+                                    <br/>
+
+                                    <label for="target2_i2c">i2c address </label>
+                                    <input type="text" id="target2_i2c" pattern="0[xX][0-9a-fA-F]{1,2}" value="0x70" class="target_i2c" required/>
                                 </div>
+                                
                                 <div class="form-row">
-                                    <label for="midi_led_off">disable midi led</label>
-                                    <input type="checkbox" id="midi_led_off"></checkbox>
-                                </div>
-                                <div class="form-row">
-                                    <input type="submit" id="save_btn" />
+                                    <input type="submit" id="save_btn" value="Save" />
+                                    <input type="button" id="add_btn" value="Add" />
+                                    <input type="button" id="remove_btn" value="Remove" />
                                 </div>
                             </form>
                         </div>
