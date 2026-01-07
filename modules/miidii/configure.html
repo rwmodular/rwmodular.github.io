@@ -62,12 +62,17 @@
             .changeaddr {
               float: right;
             }
+            .feature {
+              display: none;
+            }
         </style>
         <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
         <script type="module">
 
           var max_targets = 2;
           var num_targets = 1;
+          var fw_version = [1, 0, 0];
+          var settings_version = 0x1;
           var miidii_input = undefined;
           var miidii_output = undefined;
 
@@ -98,11 +103,13 @@
                 if (d[4] === 0x1f)
                 {
                   num_targets = 1;
-                  get("info").innerHTML = "connected to miidii version " + d[6] + "." + d[7] + "." + d[8];
+                  fw_version = [d[6], d[7], d[8]]
+                  get("info").innerHTML = "connected to miidii version " + fw_version[0] + "." + fw_version[1] + "." + fw_version[2];
                   if(d[6] < 1) {
                     showMessage("Please update your miidii module or use the old configuration page <a href=\"configure_old.html\">here</a>", true);
                   }
-                  if(d[9] == 0x77 && d[10] == 0x01) {
+                  if(d[9] == 0x77 && d[10] >= 0x01) {
+                    settings_version = d[10];
                     var count = d[11];
                     if(count < 1) {
                       show("target1");
@@ -113,21 +120,26 @@
                           count = max_targets;
                       }
                       num_targets = count;
+                      var n = 12;
                       for(var i=0; i<num_targets; i++) {
-                        var n = 12 + (i*3);
-                        var type = d[n];
-                        var midi = d[n + 1];
-                        var i2c = d[n + 2];
-
                         var name = "target" + (i + 1);
+                        var type = d[n++];
+                        var midi = d[n++];
+                        var i2c = d[n++];
+                        
                         get(name + "_type").value = (type == 1 && i2c == 0x75) ? 11 : type;
                         get(name + "_midi").value = midi;
                         get(name + "_i2c").value = "0x" + i2c.toString(16);
 
+                        if(settings_version > 1) { 
+                          var vol = d[n++];
+                          get(name + "_vol").value = vol;
+                        }
+
                         show(name);
                       }
 
-                      get("midi_led_off").checked = d[(num_targets * 3) + 12] == 1;
+                      get("midi_led_off").checked = d[n++] == 1;
                     }
                   }
                   else
@@ -142,28 +154,32 @@
                     
                   show("config_form");
                   show("enter_firmware");
+
+                  if(settings_version > 1) {
+                    document.querySelectorAll(".max_vol").forEach(e => e.classList.add("show"));
+                  }
                 }
               });
               miidii_output.sendSysex([0x7d, 0x00, 0x00], [0x11]);
           }
 
           function writeConfig() {
-            var d = [0x12];
-            d[1] = 0x77;
-            d[2] = 0x01;
-            d[3] = num_targets;
-            
+            var d = [0x12, 0x77, settings_version, num_targets];           
             for(var i=0; i<num_targets; i++) {
               var n = 4 + (i*3);
               var name = "target" + (i+1);
 
               var type = get(name + "_type").value;
-              d[n] = type == "1" || type == "11" ? 1 : 0;
-              d[n+1] = Number(get(name + "_midi").value);
-              d[n+2] = Number(get(name + "_i2c").value);
+              d.push(type == "1" || type == "11" ? 1 : 0);
+              d.push(Number(get(name + "_midi").value));
+              d.push(Number(get(name + "_i2c").value));
+
+              if(settings_version > 1) {
+                d.push(Number(get(name + "_vol").value));
+              }
             }
 
-            d[(num_targets * 3) + 4] = get("midi_led_off").checked ? 1 : 0;
+            d.push(get("midi_led_off").checked ? 1 : 0);
             miidii_output.sendSysex([0x7d, 0x00, 0x00], d);
           }
 
@@ -281,7 +297,7 @@
                             <form id="config_form">
                                 <div class="form-row">
                                     <label for="midi_led_off">disable midi led</label>
-                                    <input type="checkbox" id="midi_led_off"></checkbox>
+                                    <input type="checkbox" id="midi_led_off">
                                 </div>
                                 <div id="target1" class="form-row target">
                                     <div id="target1_changeaddr" class="changeaddr">
@@ -319,8 +335,28 @@
                                     <div style="font-size:0.8rem">* in six monosynths mode one channel is used per voice starting from the selected channel looping back to 1 if it goes beyond 16</div>
                                     <br/>
 
-                                    <label for="target1_i2c">i2c address </label>
-                                    <input type="text" id="target1_i2c" pattern="0[xX][0-9a-fA-F]{1,2}" value="0x70" class="target_i2c" required/>
+                                    <div>
+                                      <label for="target1_i2c">i2c address </label>
+                                      <input type="text" id="target1_i2c" pattern="0[xX][0-9a-fA-F]{1,2}" value="0x70" class="target_i2c" required/>
+                                    </div>
+                                    <br/>
+
+                                    <div class="max_vol feature">
+                                      <label for="target1_vol">max volume</label>
+                                      <select id="target1_vol">
+                                        <option value="10">1.0</option>
+                                        <option value="15">1.5</option>
+                                        <option value="20">2.0</option>
+                                        <option value="25">2.5</option>
+                                        <option value="30" selected>3.0</option>
+                                        <option value="35">3.5</option>
+                                        <option value="40">4.0</option>
+                                        <option value="45">4.5</option>
+                                        <option value="50">5.0</option>
+                                      </select>
+                                      <div style="font-size:0.8rem">*increasing max volume can cause distortion</div>
+                                  </div>
+
                                 </div>
                                 <div id="target2" class="form-row target">
                                     <div id="target1_changeaddr" class="changeaddr">
@@ -358,8 +394,28 @@
                                     <div style="font-size:0.8rem">* in six monosynths mode one channel is used per voice starting from the selected channel looping back to 1 if it goes beyond 16</div>
                                     <br/>
 
-                                    <label for="target2_i2c">i2c address </label>
-                                    <input type="text" id="target2_i2c" pattern="0[xX][0-9a-fA-F]{1,2}" value="0x70" class="target_i2c" required/>
+                                    <div>
+                                      <label for="target2_i2c">i2c address </label>
+                                      <input type="text" id="target2_i2c" pattern="0[xX][0-9a-fA-F]{1,2}" value="0x70" class="target_i2c" required/>
+                                    </div>
+                                    <br/>
+
+                                    <div class="max_vol feature">
+                                      <label for="target2_vol">max volume</label>
+                                      <select id="target2_vol">
+                                        <option value="10">1.0</option>
+                                        <option value="15">1.5</option>
+                                        <option value="20">2.0</option>
+                                        <option value="25">2.5</option>
+                                        <option value="30" selected>3.0</option>
+                                        <option value="35">3.5</option>
+                                        <option value="40">4.0</option>
+                                        <option value="45">4.5</option>
+                                        <option value="50">5.0</option>
+                                      </select>
+                                      <div style="font-size:0.8rem">*increasing max volume can cause distortion</div>
+                                  </div>
+
                                 </div>
                                 
                                 <div class="form-row">
@@ -375,7 +431,7 @@
         </div>
 
         <div class="footer">
-            © 2025 random works modular
+            © 2026 random works modular
         </div>
     </body>
     <script>
